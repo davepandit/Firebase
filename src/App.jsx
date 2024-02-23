@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 import {app} from "./Firebase"
 import {getDatabase , ref , set} from "firebase/database"
 import { getAuth , createUserWithEmailAndPassword } from "firebase/auth";
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
+import { SignInWithGoogle } from './pages/SignInWithGoogle';
+import { onAuthStateChanged } from 'firebase/auth';
+import LogOut from './pages/LogOut';
 
 //creating an instance for 
 
@@ -35,15 +38,49 @@ function App() {
   // }
 
 
-  return (
-    <>
-     <h1>Firebase App</h1>
-     <SignUp/>
-     <SignIn/>
 
-     {/* <button onClick={authorizeUser}>sign up</button> */}
-    </>
-  )
-}
+  //useState for checking the Auth status
+  const [user , setUser]=useState(null)
+
+  //checking the auth status of the user
+  useEffect(()=>{
+    onAuthStateChanged(auth , (user)=>{
+      if(user){
+        setUser(user)
+      }
+      else{
+        setUser(null)
+      }
+    })
+  },[])
+
+  if(user){
+    return(
+      <div>
+        <h2>Hey {user.email}</h2>
+        <LogOut user={user} setUser={setUser}/>
+
+      </div>
+    )
+
+  }
+
+  else{
+    return (
+      <>
+       <h1>Firebase App</h1>
+       <SignUp/>
+       <SignIn/>
+       <SignInWithGoogle/>
+  
+       {/* <button onClick={authorizeUser}>sign up</button> */}
+      </>
+    )
+  }
+    
+  }
+
+
+  
 
 export default App
