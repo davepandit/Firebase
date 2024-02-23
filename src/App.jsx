@@ -3,6 +3,7 @@ import {app} from "./Firebase"
 import {getDatabase , ref , set} from "firebase/database"
 import { getAuth , createUserWithEmailAndPassword } from "firebase/auth";
 import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 
 //creating an instance for 
 
@@ -38,6 +39,7 @@ function App() {
     <>
      <h1>Firebase App</h1>
      <SignUp/>
+     <SignIn/>
 
      {/* <button onClick={authorizeUser}>sign up</button> */}
     </>

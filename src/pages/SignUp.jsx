@@ -20,7 +20,7 @@ const SignUp = () => {
 
   return (
     <div>
-        <h2>Sign In Page</h2>
+        <h2>Sign Up Page</h2>
         <div>
             <label htmlFor="">Email:</label>
             <input type="text" placeholder='enter your email here'
